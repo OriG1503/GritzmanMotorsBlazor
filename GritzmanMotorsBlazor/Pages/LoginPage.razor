@@ -1,6 +1,6 @@
 ﻿@page "/LoginPage"
 @inject NavigationManager nav
-
+@inject ApiService apiService
 
 
 <PageTitle>Login</PageTitle>
@@ -93,10 +93,15 @@
 </body>
 
 @code {
+    [Parameter]
+    public int userId{ get; set; }
+
+
     public static Person loggedInPerson { get; set; }
     private string username;
     private string password;
     private bool isCorrect;
+    private PersonList personList;
 
     private async void Login()
     {
@@ -107,7 +112,7 @@
             loggedInPerson = person;
             // Successful login, navigate to HomePage.xaml with the person parameter
             LoginPage.loggedInPerson = loggedInPerson;
-            nav.NavigateTo("/HomePage");
+            nav.NavigateTo($"/HomePage/{person.Id}");
         }
         else
             isCorrect = true;
@@ -116,13 +121,15 @@
 
     public async Task<Person> SpecificPerson(string username, string password)
     {
-        ApiService apiService = new ApiService();
-        PersonList personList = await apiService.GetPersonList();
+        personList = await apiService.GetPersonList();
         return personList.Find(x => x.FirstName == username && x.LastName == password);
     }
 
-    protected override void OnInitialized()
+   
+
+    protected async override Task OnInitializedAsync()
     {
         isCorrect = false;
+        // personList lst = await
     }
 }

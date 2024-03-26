@@ -1,6 +1,8 @@
-﻿@page "/HomePage"
-@inject NavigationManager nav
+﻿@page "/HomePage/{userId:int}"
+@page "/HomePage"
 
+@inject NavigationManager nav
+@inject ApiService apiService
 
     <style>
         body {
@@ -62,8 +64,10 @@
     </style>
 
 <body>
-    <div class="container">
-        <!-- Navigation Bar -->
+    @if (loggedInPerson != null)
+    {
+        <div class="container">
+            <!-- Navigation Bar -->
         <div class="navigation-bar">
             <!-- Navigation Bar content goes here -->
         </div>
@@ -73,15 +77,17 @@
 
         <!-- Display Person Information -->
         <div class="person-info">
-            <label for="first-name">First Name:</label>
-            <label for="last-name">Last Name:</label>
-            <label for="birth-date">Date Of Birth:</label>
+            <label for="first-name">First Name: @loggedInPerson.FirstName</label>
+            <label for="last-name">Last Name: @loggedInPerson.LastName</label>
+            <label for="birth-date">Date Of Birth: @loggedInPerson.DateOfBirth.ToString()</label>
         </div>
 
         <!-- Logout Button -->
         <button class="logout-button" onclick="logout()">Logout</button>
+        
+            <button class="btn btn-outline-primary" @onclick=NavigateToOrdersPage>To Orders List</button>
     </div>
-
+    }
     <script>
         function logout() {
             // Handle logout functionality
@@ -91,5 +97,22 @@
 
 
 @code {
+    [Parameter]
+    public int userId { get; set; }
 
+    private Person loggedInPerson;
+
+    protected async override Task OnInitializedAsync()
+    {
+        PersonList personLst = await apiService.GetPersonList();
+        if(userId!=0)
+            loggedInPerson = personLst.Find(x => x.Id == userId);
+
+    }
+
+    private void NavigateToOrdersPage()
+    {
+        if (loggedInPerson != null)
+            nav.NavigateTo($"/orderHistory/{loggedInPerson.Id}");
+    }
 }
