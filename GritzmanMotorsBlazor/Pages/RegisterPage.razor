@@ -7,16 +7,12 @@
 <PageTitle>Register</PageTitle>
 
     <style>
-        body {
-            background-color: #FF01052F;
-            font-family: 'Segoe UI', sans-serif;
-            margin: 0;
-            padding: 0;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            height: 100vh;
-        }
+    body {
+        background-color: #01052F;
+        font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        color: #66CDAA;
+    }
+       
 
         .container {
             background-color: transparent;
@@ -66,12 +62,12 @@
 
         .login-link {
             font-size: 16px;
-            color: white;
+            color: black;
             margin-top: 10px;
         }
 
             .login-link a {
-                color: white;
+                color: black;
                 text-decoration: underline;
             }
 
@@ -83,7 +79,7 @@
 <body>
     <div class="container">
         <div class="logo">
-            <img src="Images/Logo.png" alt="Logo">
+            <img src="/Gritzman Motors (1).png" alt="Logo">
         </div>
         <div class="register-form">
             <label for="first-name">First Name - Username:</label><br>
@@ -95,7 +91,7 @@
             <label for="phone-number">Phone Number:</label><br>
             <input type="tel" id="phone-number" name="phone-number" class="input-field" @bind="phoneNumber"><br>
             <button type="button" class="register-button" @onclick="RegisterClick">Register</button><br>
-            <p class="login-link">I have an account. <a href="login.html">Login now</a>.</p>
+            <p class="login-link">I have an account. <a href="/">Login now</a>.</p>
         </div>
         @if(isCorrect)
         {
@@ -159,7 +155,7 @@
         int registrationResult = await apiService.InsertCustomer(customer);
 
         if (registrationResult == 1)
-            nav.NavigateTo("/LoginPage");
+            nav.NavigateTo("/");
         else
             isCorrect = true;
         
