@@ -87,7 +87,7 @@
             <label for="last-name">Last Name - Password:</label><br>
             <input type="text" id="last-name" name="last-name" class="input-field" @bind="lastName"><br>
             <label for="date-of-birth">Date Of Birth:</label><br>
-            <input type="date" id="date-of-birth" name="date-of-birth" class="input-field" @bind="dateOfBirth"><br>
+            <input type="datetime" id="date-of-birth" name="date-of-birth" class="input-field" @bind="dateOfBirth"><br>
             <label for="phone-number">Phone Number:</label><br>
             <input type="tel" id="phone-number" name="phone-number" class="input-field" @bind="phoneNumber"><br>
             <button type="button" class="register-button" @onclick="RegisterClick">Register</button><br>
@@ -136,11 +136,10 @@
             isCorrect = true;
             return;
         }
-
         //הבדיקה של הגיל לא עובדת כאן
         DateOnly currentDate =  DateOnly.FromDateTime(DateTime.Parse(DateTime.Now.ToString()));
         DateOnly minDateOfBirth = currentDate.AddYears(-17);
-        if (dateOfBirth == null && dateOfBirth > minDateOfBirth)
+        if (dateOfBirth == null || dateOfBirth > minDateOfBirth)
         {
             isCorrect = true;
             return;

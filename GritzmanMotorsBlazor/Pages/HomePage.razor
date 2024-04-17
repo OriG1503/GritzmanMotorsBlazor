@@ -56,9 +56,9 @@
             cursor: pointer;
         }
 
-            .logout-button:hover {
-                background-color: #5cb85c;
-            }
+        .logout-button:hover {
+            background-color: #5cb85c;
+        }
     </style>
 
 <body>
@@ -84,7 +84,8 @@
 
         <!-- Logout Button -->
         <button class="logout-button" @onclick="Logout">Logout</button>
-        
+
+            <Map width="500px" height="500px" Parameters="@parameters"></Map>
             
     </div>
     }
@@ -120,4 +121,23 @@
         if (loggedInPerson != null)
             nav.NavigateTo($"/orderHistory/{loggedInPerson.Id}");
     }
+    
+    Map.LoadParameters parameters = new Map.LoadParameters()
+    {
+        location = new Map.Location()
+        {
+            longitude = 34.81055554769117,
+            latitude = 31.97219289000539
+        },      
+        zoom_level = 18,
+    };
+
+    Map.MapOptions map_options = new Map.MapOptions()
+    {
+        interaction_options = new Map.InteractionOptions()
+        {
+            doubleClickZoom = false
+        }            
+    };
+
 }

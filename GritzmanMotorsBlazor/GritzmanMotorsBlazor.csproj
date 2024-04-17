@@ -12,6 +12,10 @@
   </ItemGroup>
 
   <ItemGroup>
+    <PackageReference Include="LeafletForBlazor" Version="2.0.4.4" />
+  </ItemGroup>
+
+  <ItemGroup>
     <Reference Include="ApiService">
       <HintPath>..\..\GritzmanMotorsVS\ApiService\bin\Debug\net7.0\ApiService.dll</HintPath>
     </Reference>
